@@ -29,7 +29,8 @@ public class SimpleBrowser extends Activity implements OnClickListener {
         ourBrow.getSettings().setBuiltInZoomControls(true);
         ourBrow.setWebViewClient(new WebViewClient());
 
-        ourBrow.loadUrl("http://moebiuscurve.livejournal.com");
+        if(savedInstanceState!=null) ourBrow.restoreState(savedInstanceState);
+        else ourBrow.loadUrl("http://moebiuscurve.livejournal.com");
 
         Button go = (Button) findViewById(R.id.bGo);
         Button back = (Button) findViewById(R.id.bBack);
@@ -68,5 +69,17 @@ public class SimpleBrowser extends Activity implements OnClickListener {
                 ourBrow.clearHistory();
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ourBrow.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        ourBrow.restoreState(savedInstanceState);
     }
 }
