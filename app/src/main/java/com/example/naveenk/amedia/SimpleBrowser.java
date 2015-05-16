@@ -1,7 +1,9 @@
 package com.example.naveenk.amedia;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,6 +55,9 @@ public class SimpleBrowser extends Activity implements OnClickListener {
             case R.id.bGo:
                 String theWebsite = url.getText().toString();
                 ourBrow.loadUrl(theWebsite);
+                //hiding Keyboard after using (EditText) url window.
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(url.getWindowToken(),0);
                 break;
             case R.id.bBack:
                 if(ourBrow.canGoBack())
