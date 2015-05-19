@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.File;
 
 /**
  * Created by naveenk on 18/5/15.
@@ -21,6 +19,8 @@ public class SharedPrefs extends Activity implements OnClickListener {
     EditText sharedData;
     TextView dataResults;
     SharedPreferences someData;
+
+
     public static String filename ="MySharedString";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class SharedPrefs extends Activity implements OnClickListener {
         dataResults = (TextView) findViewById(R.id.tvLoadSharedPrefs);
         save.setOnClickListener(this);
         load.setOnClickListener(this);
+
     }
 
     @Override
