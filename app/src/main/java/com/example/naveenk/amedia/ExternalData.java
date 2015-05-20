@@ -1,6 +1,8 @@
 package com.example.naveenk.amedia;
 
 import android.app.Activity;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -107,7 +109,7 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                 break;
             case R.id.bSaveFile:
                 String f = saveFile.getText().toString();
-                file =new File(path,f);
+                file =new File(path,f+".png");
                 checkState();
                 if(canW == canR == true){
                     path.mkdirs();
@@ -121,6 +123,18 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                         os.close();
                         Toast t = Toast.makeText(ExternalData.this, "File has been saved",Toast.LENGTH_LONG);
                         t.show();
+
+                        //update files for the user to use
+                        MediaScannerConnection.scanFile(ExternalData.this, new String[]{file.toString()},
+                                null,
+                                new MediaScannerConnection.OnScanCompletedListener() {
+                                    @Override
+                                    public void onScanCompleted(String path, Uri uri) {
+                                        Toast t = Toast.makeText(ExternalData.this,"scan complete",Toast.LENGTH_SHORT);
+                                        t.show();
+                                    }
+                                });
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
