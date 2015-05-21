@@ -119,6 +119,17 @@
         <activity
             android:name=".ExternalData"
             android:label="@string/app_name"/>
+        <activity
+            android:name=".SQLiteExample"
+            android:label="@string/app_name"/>
+
+        <activity android:name=".SQLView"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.example.naveenk.amedia.SQLVIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
