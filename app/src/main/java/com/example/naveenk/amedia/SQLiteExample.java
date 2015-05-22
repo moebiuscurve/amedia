@@ -78,26 +78,80 @@ public class SQLiteExample extends Activity implements View.OnClickListener {
                 startActivity(i);
                 break;
             case R.id.bgetInfo:
-                String s = sqlRow.getText().toString();
-                long l = Long.parseLong(s);
-                HotOrNot hon = new HotOrNot(this);
-                try {
-                    hon.open();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                String returnedName = hon.getName(l);
-                String returnedHotness = hon.getHotness(l);
-                hon.close();
+                try{
+                    String s = sqlRow.getText().toString();
+                    long l = Long.parseLong(s);
+                    HotOrNot hon = new HotOrNot(this);
+                    try {
+                        hon.open();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    String returnedName = hon.getName(l);
+                    String returnedHotness = hon.getHotness(l);
+                    hon.close();
 
-                sqlName.setText(returnedName);
-                sqlHotness.setText(returnedHotness);
+                    sqlName.setText(returnedName);
+                    sqlHotness.setText(returnedHotness);
+                }catch(Exception e){
+                    String error = e.toString();
+                    Dialog d = new Dialog(this);
+                    d.setTitle("Dang it!");
+                    TextView tv = new TextView(this);
+                    tv.setText(error);
+                    setContentView(tv);
+                    d.show();
+                }
                 break;
             case R.id.bSQLmodify:
+             try {
+                 String mName = sqlName.getText().toString();
+                 String mHotness = sqlHotness.getText().toString();
+                 String sRow = sqlRow.getText().toString();
+                 long lRow = Long.parseLong(sRow);
 
+                 HotOrNot ex = new HotOrNot(this);
+                 try {
+                     ex.open();
+                     ex.updateEntry(lRow, mName, mHotness);
+                     ex.close();
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                 }
+            }catch(Exception e){
+                String error = e.toString();
+                Dialog d = new Dialog(this);
+                d.setTitle("Dang it!");
+                TextView tv = new TextView(this);
+                tv.setText(error);
+                setContentView(tv);
+                d.show();
+            }
                 break;
             case R.id.bSQLdelete:
+                try{
+                    String sRow1 = sqlRow.getText().toString();
+                    long lRow1 = Long.parseLong(sRow1);
 
+                    HotOrNot ex1 = new HotOrNot(this);
+
+                    try {
+                        ex1.open();
+                        ex1.deleteEntry(lRow1);
+                        ex1.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }catch(Exception e){
+                    String error = e.toString();
+                    Dialog d = new Dialog(this);
+                    d.setTitle("Dang it!");
+                    TextView tv = new TextView(this);
+                    tv.setText(error);
+                    setContentView(tv);
+                    d.show();
+                }
                 break;
         }
     }
